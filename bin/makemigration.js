@@ -73,7 +73,8 @@ let sequelize = require(modelsDir).sequelize;
 
 let models = sequelize.models;
 
-currentState.tables = migrate.reverseModels(sequelize, models);
+let currentStateJson = JSON.stringify(migrate.reverseModels(sequelize, models), null, 4);
+currentState.tables = JSON.parse(currentStateJson);
     
 let upActions = migrate.parseDifference(previousState.tables, currentState.tables);
 let downActions = migrate.parseDifference(currentState.tables, previousState.tables);
